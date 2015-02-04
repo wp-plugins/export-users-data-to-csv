@@ -4,6 +4,7 @@ Contributors: kostikpenzin
 Tags: user, users, users data, csv, batch, export, export data, exporter, admin
 Requires at least: 3.5
 Tested up to: 4.1
+Stable tag: 1.1.0 
 Plugin URI: http://pkweb.ru/
 Donate link: http://pkweb.ru/donate/
 
