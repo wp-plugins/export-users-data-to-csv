@@ -11,8 +11,8 @@ License: GPL2
 Text Domain: export-users-data-to-csv
 */
 
-ini_set("memory_limit", "1024M");
-set_time_limit(360);
+ini_set("memory_limit", "1048M");
+set_time_limit(60);
 
 class Export_Users_CSV {
 
@@ -120,20 +120,29 @@ class Export_Users_CSV {
 			<tr valign="top">
 				<th scope="row"><label><?php _e( 'Date range', 'users-data-to-csv' ); ?></label></th>
 				<td>
-					<select name="start_date" id="users_start_date">
+					<!--<select name="start_date" id="users_start_date">
 						<option value="0"><?php _e( 'Start Date', 'users-data-to-csv' ); ?></option>
 						<?php $this->export_date(); ?>
 					</select>
 					<select name="end_date" id="users_end_date">
 						<option value="0"><?php _e( 'End Date', 'users-data-to-csv' ); ?></option>
 						<?php $this->export_date(); ?>
-					</select>
+					</select>-->
+                <?php
+                $start = $_POST['start'];
+                if (!$start) $start = date("Y-m-d", time()-86400*30);
+                $end = $_POST['end'];
+                if (!$end) $end = date("Y-m-d", time());
+                ?>
+
+                <input type="date" name="start_date" value="<?= $start ?>" /> - <input type="date" name="end_date" value="<?= $end ?>" />
+
 				</td>
 			</tr>
 		</table>
 		<p class="submit">
 			<input type="hidden" name="_wp_http_referer" value="<?php echo $_SERVER['REQUEST_URI'] ?>" />
-			<input type="submit" class="button-primary" value="<?php _e( 'Export', 'users-data-to-csv' ); ?>" />
+			<input type="submit" class="button-primary" value="<?php _e( 'Export user', 'users-data-to-csv' ); ?>" />
 		</p>
 	</form>
 <?php
@@ -154,7 +163,7 @@ class Export_Users_CSV {
 			$where .= $wpdb->prepare( " AND $wpdb->users.user_registered >= %s", date( 'Y-m-d', strtotime( $_POST['start_date'] ) ) );
 
 		if ( ! empty( $_POST['end_date'] ) )
-			$where .= $wpdb->prepare( " AND $wpdb->users.user_registered < %s", date( 'Y-m-d', strtotime( '+1 month', strtotime( $_POST['end_date'] ) ) ) );
+			$where .= $wpdb->prepare( " AND $wpdb->users.user_registered < %s", date( 'Y-m-d', strtotime( $_POST['end_date'] ) ) );
 
 		if ( ! empty( $where ) )
 			$user_search->query_where = str_replace( 'WHERE 1=1', "WHERE 1=1$where", $user_search->query_where );
@@ -163,7 +172,7 @@ class Export_Users_CSV {
 	}
 
 	private function export_date() {
-		global $wpdb, $wp_locale;
+	/*	global $wpdb, $wp_locale;
 
 		$months = $wpdb->get_results( "
 			SELECT DISTINCT YEAR( user_registered ) AS year, MONTH( user_registered ) AS month
@@ -181,7 +190,7 @@ class Export_Users_CSV {
 
 			$month = zeroise( $date->month, 2 );
 			echo '<option value="' . $date->year . '-' . $month . '">' . $wp_locale->get_month( $month ) . ' ' . $date->year . '</option>';
-		}
+		}  */
 	}
 }
 
