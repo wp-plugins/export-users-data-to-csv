@@ -3,7 +3,7 @@ Plugin Name: Export Users Data to CSV
 Contributors: kostikpenzin
 Tags: user, users, users data, csv, batch, export, export data, exporter, admin
 Requires at least: 3.5
-Tested up to: 4.1
+Tested up to: 4.1 
 Plugin URI: http://pkweb.ru/
 Donate link: http://pkweb.ru/donate/
 
@@ -38,6 +38,14 @@ Ru:<br>
 3. В меню 'Пользователи', выберите 'Export to CSV'<br>
 
 == Changelog ==
+
+= 1.1.0 =
+* New interval export
+
+= 1.0.0 =
+* Initial release
+
+== Upgrade Notice ==
 
 = 1.1.0 =
 * New interval export
